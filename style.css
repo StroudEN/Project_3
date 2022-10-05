@@ -1,0 +1,56 @@
+body{
+    background-color: rgb(96, 141, 92);
+}
+#gameTitle {
+    display: flex;
+    color: rgb(18, 28, 32);
+    background-color: rgb(141, 102, 51);
+    justify-content: center;
+    font-size: 50px;
+    border: solid;
+}
+#headerDiv {
+    display:flex;
+    flex-flow: row;
+    justify-content: space-around;
+    font-size: 30px;
+}
+.playerDisplay{
+    display: flex;
+    justify-content:row;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#xPImage {
+    width: 30px;
+}
+#oPImage {
+    width: 30px;
+}
+.pContainer {
+    display: flex;
+    color: rgb(18, 28, 32);
+    background-color: rgb(141, 102, 51);
+    width: 30%;
+    flex-flow: column;
+    border:solid;
+}
+#gameBoard{
+    display:flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+.boardSpace {
+    background: url("images/boardSquare.png");
+    background-color: rgb(141, 102, 51);
+    width: 20%;
+    background-size: contain;
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+}
+.xMarker{
+    background-image:url("images/boardSquare.png"), url('images/TicX.png');
+}
+.oMarker{
+    background-image:url("images/boardSquare.png"), url('images/TicO.png');
+}

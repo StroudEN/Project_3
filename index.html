@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" defer src="index.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <header>
+        <h1 id="gameTitle">Tic Tac Toe</h1>
+        <div id="headerDiv">
+            <div class="pContainer">
+                <div class="playerDisplay">
+                    <img id="xPImage" src="images/TicX.png" alt="X icon">
+                    <div id="player1Name">Player 1</div>
+                </div>
+                <div id="player1Input">
+                    <input type="text" id="player1input">
+                    <button id="player1submit">Submit</button>
+                </div>
+            </div>
+            <div class="pContainer">
+                <div class="playerDisplay">
+                    <img id="oPImage" src="images/TicO.png" alt="O icon">
+                    <div id="player2Name">Player 2</div>
+                </div>
+                <div id="player2Input">
+                    <input type="text" id="player2input">
+                    <button id="player2submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="gameBoard">
+            <div class="topRow">
+                <div class="boardSpace" id="topLeft"></div>
+                <div class="boardSpace" id="top"></div>
+                <div class="boardSpace" id="topRight"></div>
+            </div>
+            <div class="middleRow">
+                <div class="boardSpace" id="left"></div>
+                <div class="boardSpace" id="middle"></div>
+                <div class="boardSpace" id="right"></div>
+            </div>
+            <div class="botRow">
+                <div class="boardSpace" id="botLeft"></div>
+                <div class="boardSpace" id="botMiddle"></div>
+                <div class="boardSpace" id="botRight"></div>
+            </div>
+        </div>
+    </main>
+    <button id="resetButton">Reset</button>
+</body>
+</html>
