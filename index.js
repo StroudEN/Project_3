@@ -4,35 +4,84 @@ gameState= {
     player1:        'Player 1',
     player2:        'Player 2',
     turnCounter:     0,
-    // gameBoard:      [[null, null, null],
-    //                  [null, null, null],
-    //                  [null, null, null]],
-                     //  change these locations to applicable divs like @line 21
-    gameBoard:      [[boardCell[0],boardCell[1],boardCell[2]],
-                     [boardCell[3],boardCell[4],boardCell[5]],
-                     [boardCell[6],boardCell[7],boardCell[8]]]
+    gameBoard:      [[null, null, null],
+                     [null, null, null],
+                     [null, null, null]],
+    gameOver:       false
+    // gameBoard:      [[boardCell[0],boardCell[1],boardCell[2]],
+    //                  [boardCell[3],boardCell[4],boardCell[5]],
+    //                  [boardCell[6],boardCell[7],boardCell[8]]],
+
+        // gameBoard:      [boardCell[0],boardCell[1],boardCell[2],
+        //                  boardCell[3],boardCell[4],boardCell[5],
+        //                  boardCell[6],boardCell[7],boardCell[8]],
 }
-// boardCell[0] pulls line 40 boardSpace?
+for(let i = 0; i < gameState.gameBoard.length; i++){
+    for(let j = 0; j < gameState.gameBoard[i].length; j++){
+        boardCell[i*3+j].id = `row${i}col${j}`
+    }
+}
+
+// Checking a row for multiple matches
+// decide on direction to check
+// have to look at single object
+// have a matchCounter if = 4 win
+// for 
+// if newcell === 'player' add matchcounter, go to next space, if newcell==='player' add matchcounter
+// else 
+
 // -------------------------------Win Conditions--------------------------------
-winState= [
-    [[0][0],[0][1],[0][2]],
-    [[1][0],[1][1],[1][2]],
-    [[2][0],[2][1],[3][2]],
-    [[0][0],[1][0],[2][0]],
-    [[0][1],[1][1],[2][1]],
-    [[0][2],[1][2],[2][2]],
-    [[0][0],[1][1],[2][2]],
-    [[0][2],[1][1],[2][0]]
-]
+// winState= [
+//     [gameState.gameBoard[0][0],gameState.gameBoard[0][1],gameState.gameBoard[0][2]],
+//     [gameState.gameBoard[1][0],gameState.gameBoard[1][1],gameState.gameBoard[1][2]],
+//     [gameState.gameBoard[2][0],gameState.gameBoard[2][1],gameState.gameBoard[2][2]],
+//     [gameState.gameBoard[0][0],gameState.gameBoard[1][0],gameState.gameBoard[2][0]],
+//     [gameState.gameBoard[0][1],gameState.gameBoard[1][1],gameState.gameBoard[2][1]],
+//     [gameState.gameBoard[0][2],gameState.gameBoard[1][2],gameState.gameBoard[2][2]],
+//     [gameState.gameBoard[0][0],gameState.gameBoard[1][1],gameState.gameBoard[2][2]],
+//     [gameState.gameBoard[0][2],gameState.gameBoard[1][1],gameState.gameBoard[2][0]]
+// ]
+
+// winState= [
+//     [0,1,2],
+//     [3,4,5],
+//     [6,7,8],
+//     [0,3,6],
+//     [1,4,7],
+//     [2,5,8],
+//     [0,4,8],
+//     [2,4,6]
+// ]
+
 
 //
 let headerAnnounce = document.getElementById('gameTitle')
-
+// maybe use a for/in loop to cycle through Gameboard Locations instead?
 function didIWin(player) {
+    winState= [
+        [gameState.gameBoard[0][0],gameState.gameBoard[0][1],gameState.gameBoard[0][2]],
+        [gameState.gameBoard[1][0],gameState.gameBoard[1][1],gameState.gameBoard[1][2]],
+        [gameState.gameBoard[2][0],gameState.gameBoard[2][1],gameState.gameBoard[2][2]],
+        [gameState.gameBoard[0][0],gameState.gameBoard[1][0],gameState.gameBoard[2][0]],
+        [gameState.gameBoard[0][1],gameState.gameBoard[1][1],gameState.gameBoard[2][1]],
+        [gameState.gameBoard[0][2],gameState.gameBoard[1][2],gameState.gameBoard[2][2]],
+        [gameState.gameBoard[0][0],gameState.gameBoard[1][1],gameState.gameBoard[2][2]],
+        [gameState.gameBoard[0][2],gameState.gameBoard[1][1],gameState.gameBoard[2][0]]
+    ]
     return winState.some(wins =>{
     // .some checks to see if parts of an array match
         return wins.every(cell => {
-            return gameState[gameBoard][cell].classList.contains(player)
+            // let cellContainer = gameState.gameBoard[0][0]
+            // console.log(cellContainer.classList.contains(player))
+            // console.log(cell)
+            // return gameState[gameBoard][0][cell].classList.contains(player)
+            // return cellContainer[0][cell].classList.contains(player),
+            //        cellContainer[1][cell].classList.contains(player), 
+            //        cellContainer[2][cell].classList.contains(player)
+        //  return gameState.gameBoard[cell]==player
+        console.log(winState)
+        return cell === player
+        
     // This should pull every array from gameBoard and use is as 'wins' variable
     // to check against winState
         })
@@ -67,32 +116,60 @@ let reset = document.getElementById("resetButton")
 reset.addEventListener('click', resetGame)
 
 function resetGame() {
+    gameState.gameOver = false
     gameState.turnCounter = 0;
+    gameState.gameBoard = [[null, null, null],
+                           [null, null, null],
+                           [null, null, null]]
     for ( i= 0; i < boardCell.length; i++) {
         headerAnnounce.textContent = 'Tic Tac Toe'
         boardCell[i].classList.remove('xMarker')
         boardCell[i].classList.remove('oMarker')
+        
     }
 }
 board.addEventListener('click', playMove)
-
+// -----------------------Playing a move------------------------------
 function playMove(event){
-// Make setting so if gameState.player2 = Com it activates AI/random placement on
-// even turns
+    // Make setting so if gameState.player2 = Com it activates AI/random placement on
+    // even turns
     const target=event.target
-    if (target.className ==='boardSpace'){
+
+    if (target.className ==='boardSpace' && gameState.gameOver===false){
+        const row=target.id.charAt(3)
+        const col=target.id.charAt(7)
+        console.log(row,col)
+        
         if(gameState.turnCounter % 2 == 0){
+            gameState.gameBoard[row][col]= 'x'
             target.classList.add('xMarker')
-            didIWin('xMarker')
-            if (didIWinX('xMarker')) {
+
+            // let idname = event.target.id
+            // console.log(idname)
+            // let row = idname.splice(3,4)
+            // let column = idname.splice(10)
+            // gamestate.gameBoard[row][column] = 'x'
+            
+            const check= didIWin('x')
+            console.log(check)
+            if (check) {
+                gameState.gameOver = true;
                 headerAnnounce.textContent = gameState.player1 + ' wins!'
             } else {
                 gameState.turnCounter++
             }
         } else {
+            gameState.gameBoard[row][col]= 'o'
             target.classList.add('oMarker')
-            didIWin('oMarker')
-            if (didIWin('oMarker')) {
+
+            // let idname = event.target.id
+            // console.log(idname)
+            // let row = idname.splice(3,4)
+            // let column = idname.splice(10)
+            // gamestate.gameBoard[row][column] = 'o'
+            const check = didIWin('o')
+            if (check) {
+                gameState.gameOver = true;
                 headerAnnounce.textContent= gameState.player2 + ' wins!'
             } else {
                 gameState.turnCounter++

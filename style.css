@@ -36,7 +36,9 @@ body{
 }
 #gameBoard{
     display:flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin-top: 5%;
 }
 .boardSpace {
@@ -53,4 +55,7 @@ body{
 }
 .oMarker{
     background-image:url("images/boardSquare.png"), url('images/TicO.png');
+}
+.row{
+    display: flex;
 }
